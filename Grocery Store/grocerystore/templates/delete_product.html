@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="container mt-4">
+        <h3>Confirm Delete</h3>
+        <p>Are you sure you want to delete the product "{{ product.name }}"?</p>
+        <form method="post">
+            <input type="hidden" name="confirm_delete" value="yes">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a href="{{ url_for('admin') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+{% endblock %}

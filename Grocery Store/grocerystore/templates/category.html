@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    {% include "messages.html" %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                
+                <h2 class="text-center bg-white p-2 category-heading" style="color: black;">
+                    <a href="{{ url_for('get_category', id=category.id) }}">{{ category.name }}</a>
+                </h2>
+                {% for product in products %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Name: {{ product.name }}</h5>
+                        <h6>
+                            <p class="card-text">Description: {{ product.desc }}</p>
+                            <p class="card-text">Price: {{ product.price }} {{product.unit}}</p>
+                            <p class="card-text">Stock: {{ product.stock }}</p>
+                            <p class="card-text">Discount: {{ product.discount }}%</p>
+                        </h6>
+                        <div class="btn-group" role="group">
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ url_for('updateproduct', id=product.id) }}" class="btn btn-warning">Edit</a>
+                                <div class="ml-auto">
+                                    <a href="{{ url_for('deleteproduct', id=product.id) }}" class="btn btn-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <a href="{{ url_for('add_product_to_category', id=category.id) }}" class="btn btn-primary float-right">Add a New Product</a>
+                <a href="{{ url_for('admin') }}" class="btn btn-primary float-left">Go to admin page</a>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+{% endblock content %}

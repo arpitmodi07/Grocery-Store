@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<div class="container">
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-3 mt-4">
+                <div class="card" style="min-height: 200px;">
+                    <div class="card-body">
+                        {% if product.discount > 0 %}
+                            <h5 style="text-shadow: 1px 2px 2px #000; color: darkseagreen; transform: rotate(-5deg);">Discount {{ product.discount }}%</h5>
+                        {% endif %}
+                        <h5 class="text-center">{{ product.name }}</h5>
+                        <p class="text-center">Price: {{ product.price }} {{product.unit}}</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                          <a href="{{ url_for('details', id=product.id) }}" class="btn btn-sm btn-primary">Details</a>
+                          {% if product.stock > 0 %}
+                          <form action="{{ url_for('AddCart') }}" method="post">
+                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                            <button type="submit" class="btn btn-sm btn-warning">Add Cart</button>
+                            <input type="hidden" name="quantity" value="1">
+                          </form>
+                          {% else %}
+                          <p class="text-danger">Out of Stock</p>
+                          {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
